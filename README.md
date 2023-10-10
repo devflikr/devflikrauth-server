@@ -1,2 +1,2 @@
-# auth-server
-App authentication API server for DevFlikr apps.
+# devflikr-accounts
+Account management backend API for DevFlikr App.
