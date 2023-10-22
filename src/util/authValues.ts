@@ -1,4 +1,3 @@
-import console from "../tools/console";
 import throwError from "../tools/error";
 import AuthValues from "../types/authValues";
 import { ExpressNextFunction, ExpressRequest, ExpressResponse } from "../types/express";
@@ -18,11 +17,11 @@ export function validateAuthValues(authKeys: Array<keyof AuthValues>) {
     return function (req: ExpressRequest, res: ExpressResponse, next: ExpressNextFunction) {
         if (!req.authValues) return throwError(res, 501);
 
-        for (let key of authKeys) {
+        for (const key of authKeys) {
             if (req.authValues[key] == null) return throwError(res, 502, key);
         }
 
 
         next();
-    }
+    };
 }

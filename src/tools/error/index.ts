@@ -1,7 +1,7 @@
-import errors from './errors';
-import { ErrorCode } from '../../types/error';
-import { ExpressResponse } from '../../types/express';
-import console from '../console';
+import errors from "./errors";
+import { ErrorCode } from "../../types/error";
+import { ExpressResponse } from "../../types/express";
+import console from "../console";
 
 function throwError(res: ExpressResponse, errorKey: number, ...data: any) {
 
@@ -20,15 +20,11 @@ function throwError(res: ExpressResponse, errorKey: number, ...data: any) {
 function getErrorDataByKey(key: number): ErrorCode | null {
     const errorChart = errors as { [key: string]: any };
     for (const host in errorChart) {
-        if (errorChart.hasOwnProperty(host)) {
-            const hostChart = errorChart[host] as { [key: string]: any };
-            for (const path in hostChart) {
-                if (hostChart.hasOwnProperty(path)) {
-                    const pathChart = hostChart[path] as { [key: string]: any };
-                    if (pathChart.key === key) {
-                        return pathChart as ErrorCode;
-                    }
-                }
+        const hostChart = errorChart[host] as { [key: string]: any };
+        for (const path in hostChart) {
+            const pathChart = hostChart[path] as { [key: string]: any };
+            if (pathChart.key === key) {
+                return pathChart as ErrorCode;
             }
         }
     }

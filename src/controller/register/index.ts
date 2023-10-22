@@ -36,7 +36,7 @@ async function controllerRegister(req: ExpressRequest, res: ExpressResponse, nex
         await UserName.create({
             email,
             username: generatedUsername.toLowerCase(),
-        })
+        });
 
         setAuthValues(req, "uid", userEntry._id.toString());
 
@@ -49,4 +49,4 @@ async function controllerRegister(req: ExpressRequest, res: ExpressResponse, nex
 
 }
 
-export default controllerRegister
+export default controllerRegister;

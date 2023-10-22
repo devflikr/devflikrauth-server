@@ -1,5 +1,4 @@
-import { ObjectId } from 'mongodb';
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const userDeviceSchema = new mongoose.Schema({
     token: {

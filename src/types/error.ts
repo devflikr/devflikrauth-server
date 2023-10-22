@@ -3,4 +3,6 @@ export interface ErrorCode {
     code: number;
     message: string;
     type: string;
-};
+}
+
+export default ErrorCode;

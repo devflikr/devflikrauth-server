@@ -1,7 +1,8 @@
 import throwError from "../../tools/error";
-import { AUTH_ARRAY_INDEX_NAME, AUTH_ARRAY_NAME } from "../../types";
+import { AUTH_ARRAY_NAME } from "../../types";
 import { ExpressNextFunction, ExpressRequest, ExpressResponse } from "../../types/express";
 import setAuthValues from "../../util/authValues";
+import setResponseCookies from "../../util/cookies";
 
 
 async function controllerUpdateAuthArray(req: ExpressRequest, res: ExpressResponse, next: ExpressNextFunction) {
@@ -19,13 +20,9 @@ async function controllerUpdateAuthArray(req: ExpressRequest, res: ExpressRespon
 
         authArray = authArray.filter((item, index) => item && authArray.indexOf(item) === index);
 
-        const newIndex = authArray.indexOf(session);
-
-        res.cookie(AUTH_ARRAY_NAME, authArray.join("."));
-        res.cookie(AUTH_ARRAY_INDEX_NAME, newIndex);
+        setResponseCookies(res, AUTH_ARRAY_NAME, authArray.join("."));
 
         setAuthValues(req, "auth", authArray);
-        setAuthValues(req, "index", newIndex);
 
         next();
     } catch (error) {

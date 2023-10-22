@@ -1,11 +1,15 @@
-export default interface Lookup {
+interface Lookup {
     uid: string;
-    name?: string;
+    index: number;
     email?: string;
     phone?: string;
     profile?: string;
+    lastname?: string;
     username?: string;
-    isVerified?: boolean;
+    firstname?: string;
     deviceToken: string;
+    isVerified?: boolean;
     sessionToken: string;
 }
+
+export default Lookup;

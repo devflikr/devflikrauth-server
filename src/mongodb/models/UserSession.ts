@@ -1,5 +1,5 @@
-import { ObjectId } from 'mongodb';
-import mongoose from 'mongoose';
+import { ObjectId } from "mongodb";
+import mongoose from "mongoose";
 
 const userSessionSchema = new mongoose.Schema({
     uid: {

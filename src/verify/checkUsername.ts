@@ -1,16 +1,16 @@
 import throwError from "../tools/error";
 import { ExpressNextFunction, ExpressRequest, ExpressResponse } from "../types/express";
-import isEmpty from 'validator/lib/isEmpty';
-import bannedUsernames from '../assets/banned-usernames.json';
+import isEmpty from "validator/lib/isEmpty";
+import bannedUsernames from "../assets/banned-usernames.json";
 import setAuthValues from "../util/authValues";
 
 function checkUsername(req: ExpressRequest, res: ExpressResponse, next: ExpressNextFunction) {
-    let username = (req.body["username"] as string || "");
+    const username = (req.body["username"] as string || "");
 
     if (validateUsername(res, username) === true) setAuthValues(req, "username", username.trim().toLowerCase()) && next();
 }
 
-export function validateUsername(res: ExpressResponse, username: string) {
+export function validateUsername(res: ExpressResponse, username: string, isBanned: boolean = true) {
 
     username = username.trim();
 
@@ -26,7 +26,7 @@ export function validateUsername(res: ExpressResponse, username: string) {
 
     username = username.toLowerCase();
 
-    if (bannedUsernames.includes(username)) return throwError(res, 105);
+    if (isBanned && bannedUsernames.includes(username)) return throwError(res, 105);
 
     return true;
 }

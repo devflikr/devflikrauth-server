@@ -36,8 +36,11 @@ export interface ErrorType {
         exists: ErrorCode; // 602
         nouser: ErrorCode; // 603
         nolookup: ErrorCode; // 604
+        emptylookup: ErrorCode; // 605
+        session: ErrorCode; // 606
+        expired: ErrorCode; // 607
     };
-};
+}
 
 const errors: ErrorType = {
     username: {
@@ -76,13 +79,13 @@ const errors: ErrorType = {
         empty: {
             key: 201,
             code: 400,
-            type: "request/email/empty",
+            type: "request/username/empty",
             message: "Email is empty"
         },
         invalid: {
             key: 202,
             code: 400,
-            type: "request/email/invalid",
+            type: "request/username/invalid",
             message: "Email is invalid"
         },
     },
@@ -90,13 +93,13 @@ const errors: ErrorType = {
         empty: {
             key: 301,
             code: 400,
-            type: "request/username-or-email/empty",
+            type: "request/username/empty",
             message: "Username or email is empty"
         },
         invalid: {
             key: 302,
             code: 400,
-            type: "auth/username-or-email/invalid",
+            type: "auth/username/invalid",
             message: "Username is not associated with any email"
         },
     },
@@ -180,20 +183,38 @@ const errors: ErrorType = {
         exists: {
             key: 602,
             code: 400,
-            type: "auth/email/exist",
+            type: "auth/username/exist",
             message: "A user with this email already exists",
         },
         nouser: {
             key: 603,
             code: 400,
-            type: "auth/email/no-user",
+            type: "auth/username/no-user",
             message: "No user with this email exists",
         },
         nolookup: {
             key: 604,
             code: 400,
-            type: "auth/email/no-lookup",
+            type: "auth/username/no-lookup",
             message: "No user with this auth key exists",
+        },
+        emptylookup: {
+            key: 605,
+            code: 400,
+            type: "auth/username/empty-lookup",
+            message: "No users exists",
+        },
+        session: {
+            key: 606,
+            code: 400,
+            type: "auth/user/no-session",
+            message: "No session token was received",
+        },
+        expired: {
+            key: 607,
+            code: 400,
+            type: "auth/user/no-session",
+            message: "User session doesn't exist or has been expired",
         },
     },
 };

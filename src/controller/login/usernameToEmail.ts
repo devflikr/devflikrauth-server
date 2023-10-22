@@ -1,4 +1,3 @@
-import UserEntry from "../../mongodb/models/UserEntry";
 import UserName from "../../mongodb/models/UserName";
 import throwError from "../../tools/error";
 import { ExpressNextFunction, ExpressRequest, ExpressResponse } from "../../types/express";

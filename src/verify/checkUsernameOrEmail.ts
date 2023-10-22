@@ -23,7 +23,7 @@ export function validateUsernameOrEmail(res: ExpressResponse, username: string):
     if (isEmail(username)) {
         return validateEmail(res, username) === true ? "email" : null;
     } else {
-        return validateUsername(res, username) === true ? "username" : null;
+        return validateUsername(res, username, false) === true ? "username" : null;
     }
 }
 

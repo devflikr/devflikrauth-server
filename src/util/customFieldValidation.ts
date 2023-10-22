@@ -1,6 +1,5 @@
 import isEmpty from "validator/lib/isEmpty";
-import { ExpressNextFunction, ExpressRequest, ExpressResponse } from "../types/express";
-import throwError from "../tools/error";
+import { ExpressRequest, ExpressResponse } from "../types/express";
 
 export interface CustomFieldValidations {
     required?: boolean;
@@ -8,12 +7,12 @@ export interface CustomFieldValidations {
     trim?: boolean;
 }
 function customFieldValidation(name: string, series: number, validations: CustomFieldValidations = {}) {
-    return function (req: ExpressRequest, res: ExpressResponse, next: ExpressNextFunction) {
+    return function (req: ExpressRequest, res: ExpressResponse) {
         const value = req.body[name];
 
         if (validations.required && isEmpty(value)) return null;
         return res.send("Register");
-    }
+    };
 }
 
 export default customFieldValidation;

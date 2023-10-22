@@ -2,7 +2,7 @@ import UserSession from "../../mongodb/models/UserSession";
 import throwError from "../../tools/error";
 import { ExpressNextFunction, ExpressRequest, ExpressResponse } from "../../types/express";
 import setAuthValues from "../../util/authValues";
-import { ObjectId } from 'mongodb';
+import { ObjectId } from "mongodb";
 
 async function controllerCreateUserToken(req: ExpressRequest, res: ExpressResponse, next: ExpressNextFunction) {
 
@@ -18,12 +18,18 @@ async function controllerCreateUserToken(req: ExpressRequest, res: ExpressRespon
         const existingUserSession = await UserSession.findOne({
             uid: new ObjectId(uid),
             device,
+            $or: [
+                { expiredAt: null },
+                { expiredAt: { $exists: false } }
+            ]
         });
 
         const userSession = existingUserSession || await UserSession.create({
             uid: new ObjectId(uid),
             device,
         });
+
+        console.log(userSession);
 
         setAuthValues(req, "session", userSession._id.toString());
 

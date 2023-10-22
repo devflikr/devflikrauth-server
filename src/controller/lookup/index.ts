@@ -1,30 +1,32 @@
 import UserSession from "../../mongodb/models/UserSession";
 import throwError from "../../tools/error";
 import successResponse from "../../tools/success";
-import { AUTH_ARRAY_INDEX_NAME, AUTH_ARRAY_NAME } from "../../types";
-import { ExpressNextFunction, ExpressRequest, ExpressResponse } from "../../types/express";
-import Lookup from '../../types/lookup';
+import { AUTH_ARRAY_NAME } from "../../types";
+import { ExpressRequest, ExpressResponse } from "../../types/express";
+import Lookup from "../../types/lookup";
 import UserDetail from "../../mongodb/models/UserDetail";
+import setResponseCookies from "../../util/cookies";
+import { ObjectId } from "mongodb";
 
-async function controllerLookup(req: ExpressRequest, res: ExpressResponse, next: ExpressNextFunction) {
-
-    const authUser = parseInt(req.body["auth"] as string);
+async function controllerLookup(req: ExpressRequest, res: ExpressResponse) {
 
     if (!req.authValues) return throwError(res, 501);
 
-    const { auth, index, device } = req.authValues;
+    const { auth, device } = req.authValues;
+
 
     if (!auth) return throwError(res, 502, "auth");
     if (!device) return throwError(res, 502, "device");
-    if (index == null) return throwError(res, 502, "index");
 
     try {
 
         const result: Lookup[] = [];
-        let modified;
 
-        for (let session of [...auth]) {
-            const existingUserSession = await UserSession.findById(session);
+        let forIndex = 0;
+
+        for (const session of [...auth]) {
+
+            const existingUserSession = await UserSession.findById(new ObjectId(session));
 
             if (existingUserSession && !existingUserSession.expiredAt) {
                 const existingUserDetail = await UserDetail.findOne({
@@ -32,35 +34,26 @@ async function controllerLookup(req: ExpressRequest, res: ExpressResponse, next:
                 });
                 result.push({
                     uid: existingUserSession.uid.toString(),
-                    name: existingUserDetail?.name,
                     email: existingUserDetail?.email,
                     phone: existingUserDetail?.phone,
                     profile: existingUserDetail?.profile,
+                    lastname: existingUserDetail?.lastname,
                     username: existingUserDetail?.username,
+                    firstname: existingUserDetail?.firstname,
                     isVerified: existingUserDetail?.isVerified,
                     sessionToken: session,
                     deviceToken: device,
+                    index: forIndex++,
                 });
 
             } else {
                 auth.splice(auth.indexOf(session), 1);
-                modified = true;
             }
         }
 
-        if (modified) {
-            let newIndex = index;
+        setResponseCookies(res, AUTH_ARRAY_NAME, auth.join("."));
 
-            if (auth[newIndex] !== result[newIndex]?.sessionToken) newIndex = auth.length ? 0 : -1;
-            if (newIndex >= auth.length) newIndex = 0;
-
-            res.cookie(AUTH_ARRAY_NAME, auth.join("."));
-            res.cookie(AUTH_ARRAY_INDEX_NAME, newIndex);
-        }
-
-        if (!Number.isNaN(authUser)) {
-            return result[authUser] ? successResponse(res, "", result[authUser]) : throwError(res, 604, authUser);
-        }
+        if (!result.length) return throwError(res, 605);
 
         return successResponse(res, "", result);
     } catch (error) {

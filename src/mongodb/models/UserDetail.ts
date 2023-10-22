@@ -1,14 +1,11 @@
-import { ObjectId } from 'mongodb';
-import mongoose from 'mongoose';
+import { ObjectId } from "mongodb";
+import mongoose from "mongoose";
 
 const userDetailSchema = new mongoose.Schema({
     uid: {
         type: ObjectId,
         unique: true,
         required: true
-    },
-    name: {
-        type: String,
     },
     email: {
         type: String,
@@ -17,6 +14,8 @@ const userDetailSchema = new mongoose.Schema({
     },
     phone: String,
     profile: String,
+    lastname: String,
+    firstname: String,
     username: {
         type: String,
         unique: true,

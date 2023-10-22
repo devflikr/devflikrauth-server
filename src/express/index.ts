@@ -1,18 +1,20 @@
-import cookieParser from 'cookie-parser';
-import express, { Express } from 'express';
-import cors from 'cors';
-import console from '../tools/console';
-import accountsRouter from '../routes';
-import { generateDeviceUUID } from '../util/deviceUUID';
-import userAgent from 'express-useragent';
+import cookieParser from "cookie-parser";
+import express, { Express } from "express";
+import cors from "cors";
+import console from "../tools/console";
+import accountsRouter from "../routes";
+import { generateDeviceUUID } from "../util/deviceUUID";
+import userAgent from "express-useragent";
+import morgan from "morgan";
 
 const expressApp: Express = express();
 
 expressApp.use(cookieParser());
 expressApp.use(express.json());
 expressApp.use(userAgent.express());
+expressApp.use(morgan("dev"));
 expressApp.use(cors({
-    origin: [`http://localhost:3000`, `https://localhost:4000`],
+    origin: ["http://localhost:5173", "http://localhost:5174", "http://localhost:5175", "http://localhost:5176"],
     credentials: true,
 }));
 

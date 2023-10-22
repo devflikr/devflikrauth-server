@@ -1,3 +1,3 @@
-import * as console from './terminal';
+import * as console from "./terminal";
 
 export default console;

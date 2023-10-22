@@ -1,7 +1,6 @@
 import isEmpty from "validator/lib/isEmpty";
 import { ExpressNextFunction, ExpressRequest, ExpressResponse } from "../types/express";
 import throwError from "../tools/error";
-import isEmail from "validator/lib/isEmail";
 import setAuthValues from "../util/authValues";
 
 function checkPassword(req: ExpressRequest, res: ExpressResponse, next: ExpressNextFunction) {
