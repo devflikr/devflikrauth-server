@@ -25,8 +25,6 @@ async function controllerLogin(req: ExpressRequest, res: ExpressResponse, next: 
         setAuthValues(req, "uid", existingUserEntry._id.toString());
 
         next();
-
-
     } catch (error) {
         console.error(error);
         return throwError(res, 601);

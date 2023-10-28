@@ -4,7 +4,7 @@ import throwError from "../../tools/error";
 import { ExpressNextFunction, ExpressRequest, ExpressResponse } from "../../types/express";
 import setAuthValues from "../../util/authValues";
 
-async function controllerProfileSessionToUserID(req: ExpressRequest, res: ExpressResponse, next: ExpressNextFunction) {
+async function controllerSessionToUserID(req: ExpressRequest, res: ExpressResponse, next: ExpressNextFunction) {
 
     if (!req.authValues) return throwError(res, 501);
 
@@ -27,4 +27,4 @@ async function controllerProfileSessionToUserID(req: ExpressRequest, res: Expres
     next();
 }
 
-export default controllerProfileSessionToUserID;
+export default controllerSessionToUserID;

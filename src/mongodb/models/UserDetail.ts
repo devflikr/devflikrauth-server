@@ -18,6 +18,7 @@ const userDetailSchema = new mongoose.Schema({
     firstname: String,
     username: {
         type: String,
+        required: true,
         unique: true,
     },
     isVerified: {

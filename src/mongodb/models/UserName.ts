@@ -1,6 +1,12 @@
+import { ObjectId } from "mongodb";
 import mongoose from "mongoose";
 
 const userNameSchema = new mongoose.Schema({
+    uid: {
+        type: ObjectId,
+        unique: true,
+        required: true
+    },
     email: {
         type: String,
         unique: true,

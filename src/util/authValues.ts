@@ -21,7 +21,6 @@ export function validateAuthValues(authKeys: Array<keyof AuthValues>) {
             if (req.authValues[key] == null) return throwError(res, 502, key);
         }
 
-
         next();
     };
 }

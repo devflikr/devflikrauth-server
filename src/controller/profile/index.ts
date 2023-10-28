@@ -2,6 +2,7 @@ import { ObjectId } from "mongodb";
 import UserDetail from "../../mongodb/models/UserDetail";
 import throwError from "../../tools/error";
 import { ExpressNextFunction, ExpressRequest, ExpressResponse } from "../../types/express";
+import generateUserUniqueProfilePicture from "../../util/userProfilePicture";
 
 async function controllerProfile(req: ExpressRequest, res: ExpressResponse, next: ExpressNextFunction) {
 
@@ -11,12 +12,14 @@ async function controllerProfile(req: ExpressRequest, res: ExpressResponse, next
 
     if (!uid) throwError(res, 502, "uid");
 
+    console.log(phone);
+
     try {
 
         await UserDetail.updateOne({ uid: new ObjectId(uid) }, {
             firstname: firstname || null,
             lastname: lastname || null,
-            profile: profile || null,
+            profile: profile || generateUserUniqueProfilePicture(firstname + " " + lastname),
             phone: phone || null,
         });
 

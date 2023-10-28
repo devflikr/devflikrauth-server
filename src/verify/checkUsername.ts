@@ -7,7 +7,7 @@ import setAuthValues from "../util/authValues";
 function checkUsername(req: ExpressRequest, res: ExpressResponse, next: ExpressNextFunction) {
     const username = (req.body["username"] as string || "");
 
-    if (validateUsername(res, username) === true) setAuthValues(req, "username", username.trim().toLowerCase()) && next();
+    if (validateUsername(res, username) === true) setAuthValues(req, "username", username.trim()) && next();
 }
 
 export function validateUsername(res: ExpressResponse, username: string, isBanned: boolean = true) {

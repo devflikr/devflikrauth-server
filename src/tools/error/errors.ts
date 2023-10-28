@@ -7,6 +7,7 @@ export interface ErrorType {
         invalid: ErrorCode; // 103
         usage: ErrorCode; // 104
         banned: ErrorCode; // 105
+        taken: ErrorCode; // 106
     };
     email: {
         empty: ErrorCode; // 201
@@ -73,6 +74,12 @@ const errors: ErrorType = {
             code: 400,
             type: "request/username/banned-username",
             message: "Username contains banned words"
+        },
+        taken: {
+            key: 106,
+            code: 400,
+            type: "request/username/banned-username",
+            message: "Username is already taken"
         }
     },
     email: {

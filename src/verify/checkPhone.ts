@@ -2,9 +2,9 @@ import { ExpressNextFunction, ExpressRequest, ExpressResponse } from "../types/e
 import setAuthValues from "../util/authValues";
 
 function checkPhone(req: ExpressRequest, res: ExpressResponse, next: ExpressNextFunction) {
-    const profile = req.body["profile"];
+    const phone = req.body["phone"];
 
-    setAuthValues(req, "profile", profile);
+    setAuthValues(req, "phone", phone);
 
     next();
 }

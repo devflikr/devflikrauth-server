@@ -7,6 +7,7 @@ import { ExpressNextFunction, ExpressRequest, ExpressResponse } from "../../type
 import setAuthValues from "../../util/authValues";
 import { generateUniqueUsername } from "../../util/generator";
 import securePassword from "../../util/securePassword";
+import generateUserUniqueProfilePicture from "../../util/userProfilePicture";
 
 async function controllerRegister(req: ExpressRequest, res: ExpressResponse, next: ExpressNextFunction) {
     if (!req.authValues) return throwError(res, 501);
@@ -31,9 +32,11 @@ async function controllerRegister(req: ExpressRequest, res: ExpressResponse, nex
             uid: userEntry._id,
             email,
             username: generatedUsername,
+            profile: generateUserUniqueProfilePicture(generatedUsername),
         });
 
         await UserName.create({
+            uid: userEntry._id,
             email,
             username: generatedUsername.toLowerCase(),
         });

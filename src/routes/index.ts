@@ -13,14 +13,15 @@ import controllerLookup from "../controller/lookup";
 import controllerLookupAuthSetter from "../controller/lookup/authSetter";
 import controllerLogout from "../controller/logout";
 import controllerLookupOne from "../controller/lookup/lookupOne";
-import { generateUniqueUsername } from "../util/generator";
-import getRandomColorWithContrast from "../util/color";
 import checkName from "../verify/checkName";
 import checkProfile from "../verify/checkProfile";
 import checkPhone from "../verify/checkPhone";
 import controllerProfile from "../controller/profile";
-import controllerProfileSessionToUserID from "../controller/profile/sessionToUid";
+import controllerSessionToUserID from "../controller/token/sessionToUid";
 import checkSession from "../verify/checkSession";
+import controllerProfilePicture, { controllerProfilePictureEncrypted } from "../controller/profile/profilepicture";
+import checkUsername from "../verify/checkUsername";
+import controllerUsername from "../controller/username";
 
 const accountsRouter = express.Router();
 
@@ -58,7 +59,7 @@ accountsRouter.post(
     checkName,
     checkProfile,
     checkPhone,
-    controllerProfileSessionToUserID,
+    controllerSessionToUserID,
     controllerProfile,
     controllerLookupAuthSetter,
     controllerLookup,
@@ -66,26 +67,21 @@ accountsRouter.post(
 
 accountsRouter.get(
     "/userprofile/:name",
-    (req, res) => {
-        let initials = req.params["name"] || generateUniqueUsername();
+    controllerProfilePicture,
+);
+accountsRouter.get(
+    "/userprofile/u/:encrypt",
+    controllerProfilePictureEncrypted,
+);
 
-        if (initials.includes("-")) initials = initials.split("-").filter(word => !!word).join(" ");
-
-        initials = ((initials.split(" ").length > 1) ? initials.split(" ").map(word => word.charAt(0)).join("") : initials).slice(0, 2).toUpperCase();
-
-        const { color, contrast } = getRandomColorWithContrast();
-        const svgContent = `
-            <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
-                <rect x="0" y="0" width="512" height="512" fill="${color}" />
-                <text x="50%" y="50%" text-anchor="middle" dy=".3em" font-size="160" style="font-family: "Nunito", sans-serif; font-weight: 600;" fill="${contrast}">${initials}</text>
-            </svg>
-        `;
-
-        res.set("Content-Type", "image/svg+xml");
-        res.set("Cache-Control", "no-cache");
-
-        res.send(svgContent);
-    },
+accountsRouter.post(
+    "/updateusername",
+    checkSession,
+    checkUsername,
+    controllerSessionToUserID,
+    controllerUsername,
+    controllerLookupAuthSetter,
+    controllerLookup,
 );
 
 accountsRouter.post(
@@ -99,5 +95,9 @@ accountsRouter.post(
     controllerUpdateAuthArray, // add session to the auth array
     controllerLookup, // return all active user sessions
 );
+
+// accountsRouter.post("/pwdnew");
+// accountsRouter.post("/pwdsend");
+// accountsRouter.post("/pwdtoken");
 
 export default accountsRouter;
