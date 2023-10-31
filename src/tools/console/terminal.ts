@@ -1,4 +1,4 @@
-export const inDebug = () => process.env.MODE === "development" && process.env.USE_DEBUG_MODE === "true";
+export const inDebug = () => process.env.MODE === "development";
 
 export const timestamp = () => {
     const d = new Date();
