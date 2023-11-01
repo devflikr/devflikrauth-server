@@ -1,7 +1,7 @@
 import { compare, hash } from "bcrypt";
-import { ExpressResponse } from "../types/express";
+
 import throwError from "../tools/error";
-import console from "../tools/console";
+import { ExpressResponse } from "../types/Express";
 
 async function securePassword(res: ExpressResponse, password: string) {
     try {

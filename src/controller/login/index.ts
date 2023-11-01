@@ -1,8 +1,8 @@
-import UserEntry from "../../mongodb/models/UserEntry";
 import throwError from "../../tools/error";
-import { ExpressNextFunction, ExpressRequest, ExpressResponse } from "../../types/express";
 import setAuthValues from "../../util/authValues";
+import UserEntry from "../../mongodb/models/UserEntry";
 import { secureValidatePassword } from "../../util/securePassword";
+import { ExpressNextFunction, ExpressRequest, ExpressResponse } from "../../types/Express";
 
 async function controllerLogin(req: ExpressRequest, res: ExpressResponse, next: ExpressNextFunction) {
 

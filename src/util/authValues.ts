@@ -1,6 +1,6 @@
 import throwError from "../tools/error";
-import AuthValues from "../types/authValues";
-import { ExpressNextFunction, ExpressRequest, ExpressResponse } from "../types/express";
+import AuthValues from "../types/AuthValues";
+import { ExpressNextFunction, ExpressRequest, ExpressResponse } from "../types/Express";
 
 type AuthValue<T extends keyof AuthValues> = AuthValues[T];
 

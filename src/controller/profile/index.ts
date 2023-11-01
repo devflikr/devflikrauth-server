@@ -1,26 +1,28 @@
 import { ObjectId } from "mongodb";
-import UserDetail from "../../mongodb/models/UserDetail";
+
 import throwError from "../../tools/error";
-import { ExpressNextFunction, ExpressRequest, ExpressResponse } from "../../types/express";
+import UserDetail from "../../mongodb/models/UserDetail";
 import generateUserUniqueProfilePicture from "../../util/userProfilePicture";
+import { ExpressNextFunction, ExpressRequest, ExpressResponse } from "../../types/Express";
 
 async function controllerProfile(req: ExpressRequest, res: ExpressResponse, next: ExpressNextFunction) {
 
     if (!req.authValues) return throwError(res, 501);
 
-    const { uid, firstname, lastname, profile, phone } = req.authValues;
+    const { uid, firstname, lastname, profile, phone, gender, birthday } = req.authValues;
 
     if (!uid) throwError(res, 502, "uid");
-
-    console.log(phone);
 
     try {
 
         await UserDetail.updateOne({ uid: new ObjectId(uid) }, {
             firstname: firstname || null,
             lastname: lastname || null,
+            birthday: birthday ? birthday.getTime() || null : null,
             profile: profile || generateUserUniqueProfilePicture(firstname + " " + lastname),
+            updatedAt: Date.now(),
             phone: phone || null,
+            gender: gender,
         });
 
     } catch (error) {

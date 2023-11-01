@@ -1,7 +1,7 @@
-import UserName from "../../mongodb/models/UserName";
 import throwError from "../../tools/error";
-import { ExpressNextFunction, ExpressRequest, ExpressResponse } from "../../types/express";
 import setAuthValues from "../../util/authValues";
+import UserName from "../../mongodb/models/UserName";
+import { ExpressNextFunction, ExpressRequest, ExpressResponse } from "../../types/Express";
 
 async function controllerUsernameToEmail(req: ExpressRequest, res: ExpressResponse, next: ExpressNextFunction) {
 

@@ -1,4 +1,4 @@
-import { ErrorCode } from "../../types/error";
+import { ErrorCode } from "../../types/ErrorCode";
 
 export interface ErrorType {
     username: {

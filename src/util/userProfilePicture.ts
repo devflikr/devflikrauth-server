@@ -1,5 +1,5 @@
-import getRandomColorWithContrast from "./color";
 import { encryptString } from "./crypto";
+import getRandomColorWithContrast from "./color";
 
 export default function generateUserUniqueProfilePicture(name: string) {
     const { color, contrast } = getRandomColorWithContrast();

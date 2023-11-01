@@ -1,12 +1,13 @@
-import UserSession from "../../mongodb/models/UserSession";
-import throwError from "../../tools/error";
-import successResponse from "../../tools/success";
-import { AUTH_ARRAY_NAME } from "../../types";
-import { ExpressRequest, ExpressResponse } from "../../types/express";
-import Lookup from "../../types/lookup";
-import UserDetail from "../../mongodb/models/UserDetail";
-import setResponseCookies from "../../util/cookies";
 import { ObjectId } from "mongodb";
+
+import Lookup from "../../types/Lookup";
+import throwError from "../../tools/error";
+import { AUTH_ARRAY_NAME } from "../../types";
+import successResponse from "../../tools/success";
+import setResponseCookies from "../../util/cookies";
+import UserDetail from "../../mongodb/models/UserDetail";
+import UserSession from "../../mongodb/models/UserSession";
+import { ExpressRequest, ExpressResponse } from "../../types/Express";
 
 async function controllerLookupOne(req: ExpressRequest, res: ExpressResponse) {
 
@@ -36,16 +37,22 @@ async function controllerLookupOne(req: ExpressRequest, res: ExpressResponse) {
             });
             result = {
                 uid: existingUserSession.uid.toString(),
-                email: existingUserDetail?.email,
-                phone: existingUserDetail?.phone,
-                profile: existingUserDetail?.profile,
-                lastname: existingUserDetail?.lastname,
-                username: existingUserDetail?.username,
-                firstname: existingUserDetail?.firstname,
-                isVerified: existingUserDetail?.isVerified,
-                sessionToken: session,
-                deviceToken: device,
                 index: authUser,
+                email: existingUserDetail?.email || "",
+                username: existingUserDetail?.username || "",
+                deviceToken: device,
+                sessionToken: session,
+
+                phone: existingUserDetail?.phone,
+                gender: existingUserDetail?.gender,
+                profile: existingUserDetail?.profile,
+                birthday: existingUserDetail?.birthday,
+                lastname: existingUserDetail?.lastname,
+                firstname: existingUserDetail?.firstname,
+                createdAt: existingUserDetail?.createdAt,
+                updatedAt: existingUserDetail?.updatedAt,
+                isVerified: existingUserDetail?.isVerified,
+                passwordUpdatedAt: existingUserDetail?.passwordUpdatedAt,
             };
 
         } else {
@@ -56,7 +63,7 @@ async function controllerLookupOne(req: ExpressRequest, res: ExpressResponse) {
 
         if (!result) return throwError(res, 604);
 
-        return successResponse(res, "", result);
+        return successResponse(res, "", { data: result });
     } catch (error) {
         console.error(error);
         return throwError(res, 601);

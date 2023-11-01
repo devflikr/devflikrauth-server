@@ -1,8 +1,8 @@
-import { ExpressRequest, ExpressResponse } from "../../types/express";
-import { generateUniqueUsername } from "../../util/generator";
-import getRandomColorWithContrast from "../../util/color";
 import throwError from "../../tools/error";
 import { decryptString } from "../../util/crypto";
+import getRandomColorWithContrast from "../../util/color";
+import { generateUniqueUsername } from "../../util/generator";
+import { ExpressRequest, ExpressResponse } from "../../types/Express";
 
 async function controllerProfilePicture(req: ExpressRequest, res: ExpressResponse) {
 

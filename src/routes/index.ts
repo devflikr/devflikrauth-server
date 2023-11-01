@@ -1,56 +1,66 @@
 import express from "express";
+
+import checkName from "../verify/checkName";
 import checkEmail from "../verify/checkEmail";
+import checkPhone from "../verify/checkPhone";
+import checkProfile from "../verify/checkProfile";
+import checkSession from "../verify/checkSession";
+import checkUsername from "../verify/checkUsername";
 import checkPassword from "../verify/checkPassword";
-import controllerLogin from "../controller/login";
-import controllerRegister from "../controller/register";
 import checkUsernameOrEmail from "../verify/checkUsernameOrEmail";
-import controllerUsernameToEmail from "../controller/login/usernameToEmail";
-import controllerCreateUserToken from "../controller/token";
 
 import { validateAuthValues } from "../util/authValues";
-import controllerUpdateAuthArray from "../controller/token/updateAuthArray";
-import controllerLookup from "../controller/lookup";
-import controllerLookupAuthSetter from "../controller/lookup/authSetter";
-import controllerLogout from "../controller/logout";
-import controllerLookupOne from "../controller/lookup/lookupOne";
-import checkName from "../verify/checkName";
-import checkProfile from "../verify/checkProfile";
-import checkPhone from "../verify/checkPhone";
-import controllerProfile from "../controller/profile";
+
+import controllerLogin from "../controller/login";
+import controllerUsernameToEmail from "../controller/login/usernameToEmail";
+
+import controllerRegister from "../controller/register";
+
+import controllerCreateUserToken from "../controller/token";
 import controllerSessionToUserID from "../controller/token/sessionToUid";
-import checkSession from "../verify/checkSession";
-import controllerProfilePicture, { controllerProfilePictureEncrypted } from "../controller/profile/profilepicture";
-import checkUsername from "../verify/checkUsername";
+import controllerUpdateAuthArray from "../controller/token/updateAuthArray";
+
+import controllerLookup from "../controller/lookup";
+import controllerLookupOne from "../controller/lookup/lookupOne";
+import controllerLookupAuthSetter from "../controller/lookup/authSetter";
+
+import controllerLogout from "../controller/logout";
+
 import controllerUsername from "../controller/username";
+
+import controllerProfile from "../controller/profile";
+import controllerProfilePicture, { controllerProfilePictureEncrypted } from "../controller/profile/profilepicture";
+import checkBirthDay from "../verify/checkBirthday";
+import checkGender from "../verify/checkGender";
 
 const accountsRouter = express.Router();
 
 accountsRouter.post(
-    "/createuser", // path
-    checkEmail, // validate email address
-    checkPassword, // validate password
-    validateAuthValues(["email", "password"]), // check if email and password token is present
-    controllerRegister, // create user-entry, user-name, user-data documents
-    controllerCreateUserToken, // create a user session token
-    controllerUpdateAuthArray, // add session to the auth array
-    controllerLookup, // return all active user sessions
+    "/createuser",
+    checkEmail,
+    checkPassword,
+    validateAuthValues(["email", "password"]),
+    controllerRegister,
+    controllerCreateUserToken,
+    controllerUpdateAuthArray,
+    controllerLookup,
 );
 
 accountsRouter.get(
     "/lookup",
     controllerLookupAuthSetter,
-    controllerLookup, // return all active user sessions
+    controllerLookup,
 );
 accountsRouter.get(
     "/lookup/:authID",
     controllerLookupAuthSetter,
-    controllerLookupOne, // return all active user sessions
+    controllerLookupOne,
 );
 
 accountsRouter.delete(
     "/removesessions",
     controllerLookupAuthSetter,
-    controllerLogout, // return all active user sessions
+    controllerLogout,
 );
 
 accountsRouter.post(
@@ -59,6 +69,8 @@ accountsRouter.post(
     checkName,
     checkProfile,
     checkPhone,
+    checkBirthDay,
+    checkGender,
     controllerSessionToUserID,
     controllerProfile,
     controllerLookupAuthSetter,
@@ -66,7 +78,7 @@ accountsRouter.post(
 );
 
 accountsRouter.get(
-    "/userprofile/:name",
+    "/userprofile/n/:name",
     controllerProfilePicture,
 );
 accountsRouter.get(
@@ -85,19 +97,27 @@ accountsRouter.post(
 );
 
 accountsRouter.post(
-    "/adduser", // path
-    checkUsernameOrEmail, // validate username or email address
-    checkPassword, // validate password
-    controllerUsernameToEmail, // if username was used find the attached email
-    validateAuthValues(["email", "password"]), // check if email and password token is present
-    controllerLogin, // check for password validation with hashed password
-    controllerCreateUserToken, // create a user session token
-    controllerUpdateAuthArray, // add session to the auth array
-    controllerLookup, // return all active user sessions
+    "/adduser",
+    checkUsernameOrEmail,
+    checkPassword,
+    controllerUsernameToEmail,
+    validateAuthValues(["email", "password"]),
+    controllerLogin,
+    controllerCreateUserToken,
+    controllerUpdateAuthArray,
+    controllerLookup,
 );
 
-// accountsRouter.post("/pwdnew");
-// accountsRouter.post("/pwdsend");
-// accountsRouter.post("/pwdtoken");
+
+// pwdnew [session: user session token, "old-password": old password, "new-password": new password]
+// pwdreset [email: user email]
+
+// verifyuser [email: user email]
+// getsessions [session: code]
+// removesessions [session: code, remove: code]
+// getuserdetail [type: "email" | "uid" | "username", find: string]
+
+
+
 
 export default accountsRouter;

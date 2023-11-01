@@ -1,7 +1,8 @@
 import isEmpty from "validator/lib/isEmpty";
-import { ExpressNextFunction, ExpressRequest, ExpressResponse } from "../types/express";
+
 import throwError from "../tools/error";
 import setAuthValues from "../util/authValues";
+import { ExpressNextFunction, ExpressRequest, ExpressResponse } from "../types/Express";
 
 function checkPassword(req: ExpressRequest, res: ExpressResponse, next: ExpressNextFunction) {
     const password = (req.body["password"] as string || "");

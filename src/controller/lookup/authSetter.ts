@@ -1,7 +1,7 @@
 import throwError from "../../tools/error";
 import { AUTH_ARRAY_NAME } from "../../types";
-import { ExpressNextFunction, ExpressRequest, ExpressResponse } from "../../types/express";
 import setAuthValues from "../../util/authValues";
+import { ExpressNextFunction, ExpressRequest, ExpressResponse } from "../../types/Express";
 
 async function controllerLookupAuthSetter(req: ExpressRequest, res: ExpressResponse, next: ExpressNextFunction) {
 

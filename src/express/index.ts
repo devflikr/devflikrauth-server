@@ -1,11 +1,11 @@
-import cookieParser from "cookie-parser";
-import express, { Express } from "express";
 import cors from "cors";
-import console from "../tools/console";
+import morgan from "morgan";
+import cookieParser from "cookie-parser";
+import userAgent from "express-useragent";
+import express, { Express } from "express";
+
 import accountsRouter from "../routes";
 import { generateDeviceUUID } from "../util/deviceUUID";
-import userAgent from "express-useragent";
-import morgan from "morgan";
 
 const expressApp: Express = express();
 

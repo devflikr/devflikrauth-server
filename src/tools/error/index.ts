@@ -1,7 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import errors from "./errors";
-import { ErrorCode } from "../../types/error";
-import { ExpressResponse } from "../../types/express";
-import console from "../console";
+import { ErrorCode } from "../../types/ErrorCode";
+import { ExpressResponse } from "../../types/Express";
 
 function throwError(res: ExpressResponse, errorKey: number, ...data: any) {
 
@@ -28,8 +28,8 @@ function getErrorDataByKey(key: number): ErrorCode | null {
             }
         }
     }
-
-    return console.error("No error key found for", key) && null;
+    console.error("No error key found for", key);
+    return null;
 }
 
 export default throwError;

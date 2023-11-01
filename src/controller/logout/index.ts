@@ -1,10 +1,11 @@
 import { ObjectId } from "mongodb";
-import UserSession from "../../mongodb/models/UserSession";
+
 import throwError from "../../tools/error";
-import { ExpressRequest, ExpressResponse } from "../../types/express";
+import { AUTH_ARRAY_NAME } from "../../types";
 import successResponse from "../../tools/success";
 import setResponseCookies from "../../util/cookies";
-import { AUTH_ARRAY_NAME } from "../../types";
+import UserSession from "../../mongodb/models/UserSession";
+import { ExpressRequest, ExpressResponse } from "../../types/Express";
 
 async function controllerLogout(req: ExpressRequest, res: ExpressResponse) {
 
@@ -13,7 +14,7 @@ async function controllerLogout(req: ExpressRequest, res: ExpressResponse) {
 
     const { auth } = req.authValues;
 
-    if (!auth || !auth.length) return successResponse(res, "No auth session exists");
+    if (!auth || !auth.length) return successResponse(res, "No auth session exists", { auth: [] });
 
     try {
         for (const user of [...auth]) {
@@ -22,7 +23,7 @@ async function controllerLogout(req: ExpressRequest, res: ExpressResponse) {
 
         setResponseCookies(res, AUTH_ARRAY_NAME, null);
 
-        return successResponse(res, "All user sessions removed", []);
+        return successResponse(res, "All user sessions removed", { auth: [] });
     } catch (error) {
         console.error(error);
         return throwError(res, 601);
