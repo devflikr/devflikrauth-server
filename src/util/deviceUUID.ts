@@ -50,16 +50,17 @@ export default deviceUUID;
 export function handleDeviceTransport(req: ExpressRequest, res: ExpressResponse, next: ExpressNextFunction) {
     const cookieString = req.headers["authorization"];
 
-    try {
-        if (!cookieString) return throwError(req, res, 601);
-        const cookie: { a?: string; d?: string; } = JSON.parse(cookieString);
+    if (cookieString) {
+        try {
+            const cookie: { a?: string; d?: string; } = JSON.parse(cookieString);
 
-        req.cookies[AUTH_ARRAY_NAME] = cookie.a;
-        req.cookies[DEVICE_TOKEN_NAME] = cookie.d;
+            req.cookies[AUTH_ARRAY_NAME] = cookie.a;
+            req.cookies[DEVICE_TOKEN_NAME] = cookie.d;
 
-    } catch (error) {
-        console.log(error);
-        throwError(req, res, 601);
+        } catch (error) {
+            console.log(error);
+            throwError(req, res, 601);
+        }
     }
 
     next();
