@@ -15,16 +15,8 @@ expressApp.use(userAgent.express());
 expressApp.use(morgan("dev"));
 expressApp.use(cors({
     origin: [
-        "http://localhost:5200",
-        "http://localhost:5201",
-        "http://localhost:5202",
-        "http://localhost:5203",
-        "http://localhost:5204",
-        "http://localhost:5205",
-        "http://localhost:5206",
-        "http://localhost:5207",
-        "http://localhost:5208",
-        "http://localhost:5209",
+        /^https:\/\/devflikr(?:-(\w+))?\.netlify\.app$/,
+        /^http:\/\/localhost:\d+$/,
     ],
     credentials: true,
 }));
