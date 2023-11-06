@@ -22,9 +22,9 @@ export function validateUsernameOrEmail(req: ExpressRequest, res: ExpressRespons
     if (isEmpty(username)) return throwError(req, res, 301), null;
 
     if (isEmail(username)) {
-        return validateEmail(res, username) === true ? "email" : null;
+        return validateEmail(req, res, username) === true ? "email" : null;
     } else {
-        return validateUsername(res, username, false) === true ? "username" : null;
+        return validateUsername(req, res, username, false) === true ? "username" : null;
     }
 }
 
