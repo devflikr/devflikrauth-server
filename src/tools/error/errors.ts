@@ -27,10 +27,15 @@ export interface ErrorType {
         special: ErrorCode; // 407
         hashed: ErrorCode; // 408
         nomatch: ErrorCode; // 409
+        oldpassword: ErrorCode; // 410
+        nomatchold: ErrorCode; // 411
     };
     authValues: {
         empty: ErrorCode; // 501
         missing: ErrorCode; // 502
+        gender: ErrorCode; // 503
+        birthday: ErrorCode; // 504
+        removesession: ErrorCode; // 505
     };
     auth: {
         error: ErrorCode; // 601
@@ -165,6 +170,18 @@ const errors: ErrorType = {
             type: "request/password/no-match",
             message: "Password does not match with the email"
         },
+        oldpassword: {
+            key: 410,
+            code: 400,
+            type: "request/oldPassword/empty",
+            message: "Old password is empty"
+        },
+        nomatchold: {
+            key: 411,
+            code: 400,
+            type: "request/oldPassword/no-match",
+            message: "Old password does not match with the account"
+        },
     },
     authValues: {
         empty: {
@@ -178,6 +195,24 @@ const errors: ErrorType = {
             code: 400,
             type: "request/auth-values/missing",
             message: "Unable to find some authentication values"
+        },
+        gender: {
+            key: 503,
+            code: 400,
+            type: "request/gender/out-of-bound",
+            message: "Gender is not one of male, female, none or null"
+        },
+        birthday: {
+            key: 504,
+            code: 400,
+            type: "request/birthday/invalid",
+            message: "Birthday is an invalid Date"
+        },
+        removesession: {
+            key: 505,
+            code: 400,
+            type: "request/session/invalid-session",
+            message: "Cannot remove current session"
         },
     },
     auth: {

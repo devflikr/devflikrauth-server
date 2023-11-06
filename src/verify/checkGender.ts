@@ -5,7 +5,7 @@ import throwError from "../tools/error";
 function checkGender(req: ExpressRequest, res: ExpressResponse, next: ExpressNextFunction) {
     const gender = (req.body["gender"] as string || "").toLowerCase();
 
-    if (gender && !["male", "female", "null", "none"].includes(gender)) return throwError(res, 502, "gender-is-out-of-bound");
+    if (gender && !["male", "female", "null", "none"].includes(gender)) return throwError(res, 503);
 
     setAuthValues(req, "gender", gender);
 

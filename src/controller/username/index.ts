@@ -18,8 +18,6 @@ async function controllerUsername(req: ExpressRequest, res: ExpressResponse, nex
 
         const existingUserName = await UserName.findOne({ username: username?.toLowerCase() });
 
-        console.log(username, existingUserName);
-
         if (existingUserName) return throwError(res, 106);
 
         await UserDetail.updateOne({ uid: new ObjectId(uid) }, {

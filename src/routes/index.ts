@@ -32,6 +32,11 @@ import controllerProfile from "../controller/profile";
 import controllerProfilePicture, { controllerProfilePictureEncrypted } from "../controller/profile/profilepicture";
 import checkBirthDay from "../verify/checkBirthday";
 import checkGender from "../verify/checkGender";
+import checkPasswordOld from "../verify/checkOldPassword";
+import controllerPasswordOld from "../controller/password";
+import controllerPasswordNew from "../controller/password/newPassword";
+import controllerSessions from "../controller/session";
+import controllerRemoveSession, { controllerSessionSwitch } from "../controller/session/removeSession";
 
 const accountsRouter = express.Router();
 
@@ -108,6 +113,33 @@ accountsRouter.post(
     controllerLookup,
 );
 
+accountsRouter.post(
+    "/pwdnew",
+    checkSession,
+    checkPasswordOld,
+    controllerSessionToUserID,
+    controllerPasswordOld,
+    checkPassword,
+    controllerPasswordNew,
+    controllerLookupAuthSetter,
+    controllerLookup,
+);
+
+accountsRouter.post(
+    "/getsessions",
+    checkSession,
+    controllerSessionToUserID,
+    controllerSessions,
+);
+
+accountsRouter.post(
+    "/removesessions",
+    checkSession,
+    controllerSessionToUserID,
+    controllerSessionSwitch,
+    controllerRemoveSession,
+    controllerSessions,
+);
 
 // pwdnew [session: user session token, "old-password": old password, "new-password": new password]
 // pwdreset [email: user email]
