@@ -1,8 +1,9 @@
 import { ObjectId } from "mongodb";
+
 import throwError from "../../tools/error";
-import { ExpressNextFunction, ExpressRequest, ExpressResponse } from "../../types/express";
 import UserName from "../../mongodb/models/UserName";
 import UserDetail from "../../mongodb/models/UserDetail";
+import { ExpressNextFunction, ExpressRequest, ExpressResponse } from "../../types/Express";
 
 async function controllerUsername(req: ExpressRequest, res: ExpressResponse, next: ExpressNextFunction) {
 
@@ -16,8 +17,6 @@ async function controllerUsername(req: ExpressRequest, res: ExpressResponse, nex
     try {
 
         const existingUserName = await UserName.findOne({ username: username?.toLowerCase() });
-
-        console.log(username, existingUserName);
 
         if (existingUserName) return throwError(res, 106);
 

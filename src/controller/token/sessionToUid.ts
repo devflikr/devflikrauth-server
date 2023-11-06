@@ -1,8 +1,9 @@
 import { ObjectId } from "mongodb";
-import UserSession from "../../mongodb/models/UserSession";
+
 import throwError from "../../tools/error";
-import { ExpressNextFunction, ExpressRequest, ExpressResponse } from "../../types/express";
 import setAuthValues from "../../util/authValues";
+import UserSession from "../../mongodb/models/UserSession";
+import { ExpressNextFunction, ExpressRequest, ExpressResponse } from "../../types/Express";
 
 async function controllerSessionToUserID(req: ExpressRequest, res: ExpressResponse, next: ExpressNextFunction) {
 

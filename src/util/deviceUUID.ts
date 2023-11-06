@@ -1,10 +1,10 @@
 import uuid from "./uuid";
-import { DEVICE_TOKEN_NAME } from "../types";
-import { ExpressNextFunction, ExpressRequest, ExpressResponse } from "../types/express";
-import setAuthValues from "./authValues";
 import throwError from "../tools/error";
-import UserDevice from "../mongodb/models/UserDevice";
+import setAuthValues from "./authValues";
 import setResponseCookies from "./cookies";
+import { DEVICE_TOKEN_NAME } from "../types";
+import UserDevice from "../mongodb/models/UserDevice";
+import { ExpressNextFunction, ExpressRequest, ExpressResponse } from "../types/Express";
 
 export async function generateDeviceUUID(req: ExpressRequest, res: ExpressResponse, next: ExpressNextFunction) {
     let token = req.cookies[DEVICE_TOKEN_NAME];

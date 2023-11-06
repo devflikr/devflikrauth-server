@@ -1,8 +1,8 @@
 import throwError from "../../tools/error";
 import { AUTH_ARRAY_NAME } from "../../types";
-import { ExpressNextFunction, ExpressRequest, ExpressResponse } from "../../types/express";
 import setAuthValues from "../../util/authValues";
 import setResponseCookies from "../../util/cookies";
+import { ExpressNextFunction, ExpressRequest, ExpressResponse } from "../../types/Express";
 
 
 async function controllerUpdateAuthArray(req: ExpressRequest, res: ExpressResponse, next: ExpressNextFunction) {

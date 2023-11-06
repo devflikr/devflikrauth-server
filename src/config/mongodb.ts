@@ -1,6 +1,5 @@
-import mongoose, { ConnectOptions } from "mongoose";
 import mongo from "../mongodb";
-import console from "../tools/console";
+import mongoose, { ConnectOptions } from "mongoose";
 
 mongoose
     .connect(mongo.connectionURL, {

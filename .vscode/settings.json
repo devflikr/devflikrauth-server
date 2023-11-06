@@ -6,13 +6,18 @@
         "devflikrauth",
         "emptylookup",
         "firstname",
+        "getsessions",
+        "getuserdetail",
         "lastname",
         "linebreak",
         "nolookup",
+        "nomatchold",
         "nouser",
         "Nunito",
+        "oldpassword",
         "profilepicture",
         "pwdnew",
+        "pwdreset",
         "pwdsend",
         "pwdtoken",
         "removesession",
@@ -22,6 +27,7 @@
         "userdetail",
         "userdevice",
         "userentry",
-        "usersession"
+        "usersession",
+        "verifyuser"
     ]
 }

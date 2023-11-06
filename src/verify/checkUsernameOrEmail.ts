@@ -1,10 +1,11 @@
 import isEmpty from "validator/lib/isEmpty";
-import { ExpressNextFunction, ExpressRequest, ExpressResponse } from "../types/express";
-import throwError from "../tools/error";
 import isEmail from "validator/lib/isEmail";
+
+import throwError from "../tools/error";
 import { validateEmail } from "./checkEmail";
-import { validateUsername } from "./checkUsername";
 import setAuthValues from "../util/authValues";
+import { validateUsername } from "./checkUsername";
+import { ExpressNextFunction, ExpressRequest, ExpressResponse } from "../types/Express";
 
 function checkUsernameOrEmail(req: ExpressRequest, res: ExpressResponse, next: ExpressNextFunction) {
     const username = (req.body["username"] as string || "");

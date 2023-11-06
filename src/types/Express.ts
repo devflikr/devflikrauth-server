@@ -1,5 +1,5 @@
+import AuthValues from "./AuthValues";
 import { NextFunction, Request, Response } from "express";
-import AuthValues from "./authValues";
 
 export interface ExpressRequest extends Request {
     authValues?: AuthValues;

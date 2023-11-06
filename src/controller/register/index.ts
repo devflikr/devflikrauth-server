@@ -1,13 +1,12 @@
-import UserDetail from "../../mongodb/models/UserDetail";
-import UserEntry from "../../mongodb/models/UserEntry";
-import UserName from "../../mongodb/models/UserName";
-import console from "../../tools/console";
 import throwError from "../../tools/error";
-import { ExpressNextFunction, ExpressRequest, ExpressResponse } from "../../types/express";
 import setAuthValues from "../../util/authValues";
-import { generateUniqueUsername } from "../../util/generator";
+import UserName from "../../mongodb/models/UserName";
+import UserEntry from "../../mongodb/models/UserEntry";
 import securePassword from "../../util/securePassword";
+import UserDetail from "../../mongodb/models/UserDetail";
+import { generateUniqueUsername } from "../../util/generator";
 import generateUserUniqueProfilePicture from "../../util/userProfilePicture";
+import { ExpressNextFunction, ExpressRequest, ExpressResponse } from "../../types/Express";
 
 async function controllerRegister(req: ExpressRequest, res: ExpressResponse, next: ExpressNextFunction) {
     if (!req.authValues) return throwError(res, 501);

@@ -12,20 +12,20 @@ const userDetailSchema = new mongoose.Schema({
         unique: true,
         required: true
     },
-    phone: String,
-    profile: String,
-    lastname: String,
-    firstname: String,
     username: {
         type: String,
         required: true,
         unique: true,
     },
-    isVerified: {
-        type: Boolean,
-        required: true,
-        default: false,
+    phone: String,
+    gender: {
+        type: String,
+        default: "null",
     },
+    profile: String,
+    birthday: Date,
+    lastname: String,
+    firstname: String,
     createdAt: {
         type: Date,
         required: true,
@@ -36,6 +36,12 @@ const userDetailSchema = new mongoose.Schema({
         required: true,
         default: Date.now(),
     },
+    isVerified: {
+        type: Boolean,
+        required: true,
+        default: false,
+    },
+    passwordUpdatedAt: Date,
 });
 
 const UserDetail = mongoose.model("userdetail", userDetailSchema);

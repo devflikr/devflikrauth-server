@@ -1,8 +1,9 @@
-import throwError from "../tools/error";
-import { ExpressNextFunction, ExpressRequest, ExpressResponse } from "../types/express";
 import isEmpty from "validator/lib/isEmpty";
-import bannedUsernames from "../assets/banned-usernames.json";
+
+import throwError from "../tools/error";
 import setAuthValues from "../util/authValues";
+import bannedUsernames from "../assets/banned-usernames.json";
+import { ExpressNextFunction, ExpressRequest, ExpressResponse } from "../types/Express";
 
 function checkUsername(req: ExpressRequest, res: ExpressResponse, next: ExpressNextFunction) {
     const username = (req.body["username"] as string || "");

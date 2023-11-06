@@ -1,5 +1,5 @@
 import { CookieOptions } from "express";
-import { ExpressResponse } from "../types/express";
+import { ExpressResponse } from "../types/Express";
 
 export default function setResponseCookies(res: ExpressResponse, name: string, value: string | number | null, config: CookieOptions = {}) {
     return res.cookie(name, value, {
