@@ -5,7 +5,7 @@ import userAgent from "express-useragent";
 import express, { Express } from "express";
 
 import accountsRouter from "../routes";
-import { generateDeviceUUID } from "../util/deviceUUID";
+import { generateDeviceUUID, handleDeviceTransport } from "../util/deviceUUID";
 
 const expressApp: Express = express();
 
@@ -28,7 +28,7 @@ expressApp.use(cors({
     ],
     credentials: true,
 }));
-
+expressApp.use(handleDeviceTransport);
 expressApp.use(generateDeviceUUID);
 
 expressApp.listen(process.env.PORT, () => {
