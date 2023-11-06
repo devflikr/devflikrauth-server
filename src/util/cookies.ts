@@ -5,7 +5,7 @@ export default function setResponseCookies(res: ExpressResponse, name: string, v
     return res.cookie(name, value, {
         domain: "localhost",
         expires: (value == null ? new Date(Date.now()) : new Date(Date.now() + 365 * 24 * 60 * 60 * 1000)),
-        sameSite: true,
+        sameSite: "none",
         path: "/",
         ...config,
     });
