@@ -15,7 +15,7 @@ expressApp.use(userAgent.express());
 expressApp.use(morgan("dev"));
 expressApp.use(cors({
     origin: [
-        /^https:\/\/devflikr(?:-(\w+))?\.netlify\.app$/,
+        /^https:\/\/devflikr(?:[^.]+)?\.netlify\.app$/,
         /^http:\/\/localhost:\d+$/,
     ],
     credentials: true,
