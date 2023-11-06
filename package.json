@@ -5,7 +5,7 @@
     "main": "dist/index.js",
     "scripts": {
         "lint": "eslint . --ext .ts",
-        "build": "rimraf dist && tsc -w",
+        "build": "npm install && rimraf dist && tsc",
         "start": "node dist/index.js",
         "dev": "rimraf dist && concurrently \"tsc -w\" \"npm run lint\" \"nodemon dist/index.js\""
     },
