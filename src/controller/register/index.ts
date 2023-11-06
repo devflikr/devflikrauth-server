@@ -9,19 +9,19 @@ import generateUserUniqueProfilePicture from "../../util/userProfilePicture";
 import { ExpressNextFunction, ExpressRequest, ExpressResponse } from "../../types/Express";
 
 async function controllerRegister(req: ExpressRequest, res: ExpressResponse, next: ExpressNextFunction) {
-    if (!req.authValues) return throwError(res, 501);
+    if (!req.authValues) return throwError(req, res, 501);
 
     const { email, password } = req.authValues;
 
-    if (!email) return throwError(res, 502, "email");
-    if (!password) return throwError(res, 502, "password");
+    if (!email) return throwError(req, res, 502, "email");
+    if (!password) return throwError(req, res, 502, "password");
 
     try {
         const existingUserEntry = await UserEntry.findOne({ email });
 
-        if (existingUserEntry) return throwError(res, 602);
+        if (existingUserEntry) return throwError(req, res, 602);
 
-        const hashedPassword = await securePassword(res, password);
+        const hashedPassword = await securePassword(req, res, password);
 
         const userEntry = await UserEntry.create({ email, password: hashedPassword });
 
@@ -46,7 +46,7 @@ async function controllerRegister(req: ExpressRequest, res: ExpressResponse, nex
 
     } catch (error) {
         console.error(error);
-        return throwError(res, 601);
+        return throwError(req, res, 601);
     }
 
 }

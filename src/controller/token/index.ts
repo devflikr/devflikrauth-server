@@ -7,12 +7,12 @@ import { ExpressNextFunction, ExpressRequest, ExpressResponse } from "../../type
 
 async function controllerCreateUserToken(req: ExpressRequest, res: ExpressResponse, next: ExpressNextFunction) {
 
-    if (!req.authValues) return throwError(res, 501);
+    if (!req.authValues) return throwError(req, res, 501);
 
     const { uid, device } = req.authValues;
 
-    if (!uid) return throwError(res, 502, "uid");
-    if (!device) return throwError(res, 502, "device");
+    if (!uid) return throwError(req, res, 502, "uid");
+    if (!device) return throwError(req, res, 502, "device");
 
     try {
 
@@ -35,7 +35,7 @@ async function controllerCreateUserToken(req: ExpressRequest, res: ExpressRespon
         next();
     } catch (error) {
         console.error(error);
-        return throwError(res, 601);
+        return throwError(req, res, 601);
     }
 }
 

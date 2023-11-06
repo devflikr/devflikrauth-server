@@ -15,10 +15,10 @@ export default setAuthValues;
 
 export function validateAuthValues(authKeys: Array<keyof AuthValues>) {
     return function (req: ExpressRequest, res: ExpressResponse, next: ExpressNextFunction) {
-        if (!req.authValues) return throwError(res, 501);
+        if (!req.authValues) return throwError(req, res, 501);
 
         for (const key of authKeys) {
-            if (req.authValues[key] == null) return throwError(res, 502, key);
+            if (req.authValues[key] == null) return throwError(req, res, 502, key);
         }
 
         next();

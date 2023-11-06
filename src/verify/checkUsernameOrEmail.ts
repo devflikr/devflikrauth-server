@@ -10,16 +10,16 @@ import { ExpressNextFunction, ExpressRequest, ExpressResponse } from "../types/E
 function checkUsernameOrEmail(req: ExpressRequest, res: ExpressResponse, next: ExpressNextFunction) {
     const username = (req.body["username"] as string || "");
 
-    const token = validateUsernameOrEmail(res, username);
+    const token = validateUsernameOrEmail(req, res, username);
 
     if (token !== null) setAuthValues(req, token, username.trim().toLowerCase()) && next();
 }
 
-export function validateUsernameOrEmail(res: ExpressResponse, username: string): "username" | "email" | null {
+export function validateUsernameOrEmail(req: ExpressRequest, res: ExpressResponse, username: string): "username" | "email" | null {
 
     username = username.trim();
 
-    if (isEmpty(username)) return throwError(res, 301), null;
+    if (isEmpty(username)) return throwError(req, res, 301), null;
 
     if (isEmail(username)) {
         return validateEmail(res, username) === true ? "email" : null;

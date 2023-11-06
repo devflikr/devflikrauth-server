@@ -10,12 +10,12 @@ import { Document } from "mongoose";
 
 async function controllerSessions(req: ExpressRequest, res: ExpressResponse) {
 
-    if (!req.authValues) return throwError(res, 501);
+    if (!req.authValues) return throwError(req, res, 501);
 
     const { uid, session } = req.authValues;
 
-    if (!uid) throwError(res, 502, "uid");
-    if (!session) throwError(res, 502, "session");
+    if (!uid) throwError(req, res, 502, "uid");
+    if (!session) throwError(req, res, 502, "session");
 
     try {
 
@@ -64,11 +64,11 @@ async function controllerSessions(req: ExpressRequest, res: ExpressResponse) {
             });
         }
 
-        return successResponse(res, "", { data: result });
+        return successResponse(req, res, "", { data: result });
 
     } catch (error) {
         console.error(error);
-        return throwError(res, 601);
+        return throwError(req, res, 601);
     }
 
     // next();

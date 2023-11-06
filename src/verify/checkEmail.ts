@@ -8,16 +8,16 @@ import { ExpressNextFunction, ExpressRequest, ExpressResponse } from "../types/E
 function checkEmail(req: ExpressRequest, res: ExpressResponse, next: ExpressNextFunction) {
     const email = (req.body["email"] as string || "");
 
-    if (validateEmail(res, email) === true) setAuthValues(req, "email", email.trim().toLowerCase()) && next();
+    if (validateEmail(req, res, email) === true) setAuthValues(req, "email", email.trim().toLowerCase()) && next();
 }
 
-export function validateEmail(res: ExpressResponse, email: string) {
+export function validateEmail(req: ExpressRequest, res: ExpressResponse, email: string) {
 
     email = email.trim().toLowerCase();
 
-    if (isEmpty(email)) return throwError(res, 201);
+    if (isEmpty(email)) return throwError(req, res, 201);
 
-    if (!isEmail(email)) return throwError(res, 202);
+    if (!isEmail(email)) return throwError(req, res, 202);
 
     return true;
 }

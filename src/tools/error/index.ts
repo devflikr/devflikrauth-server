@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import errors from "./errors";
 import { ErrorCode } from "../../types/ErrorCode";
-import { ExpressResponse } from "../../types/Express";
+import { ExpressRequest, ExpressResponse } from "../../types/Express";
 
-function throwError(res: ExpressResponse, errorKey: number, ...data: any) {
+function throwError(req: ExpressRequest, res: ExpressResponse, errorKey: number, ...data: any) {
 
     const error = getErrorDataByKey(errorKey);
 
@@ -11,6 +11,7 @@ function throwError(res: ExpressResponse, errorKey: number, ...data: any) {
         error: true,
         status: "error",
         message: error?.message,
+        deviceToken: req?.authValues?.device,
         code: error?.code,
         type: error?.type,
         data: data

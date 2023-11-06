@@ -5,7 +5,7 @@ import { ExpressNextFunction, ExpressRequest, ExpressResponse } from "../../type
 
 async function controllerUsernameToEmail(req: ExpressRequest, res: ExpressResponse, next: ExpressNextFunction) {
 
-    if (!req.authValues) return throwError(res, 501);
+    if (!req.authValues) return throwError(req, res, 501);
 
     const { username, email } = req.authValues;
 
@@ -13,13 +13,13 @@ async function controllerUsernameToEmail(req: ExpressRequest, res: ExpressRespon
         try {
             const existingUserName = await UserName.findOne({ username });
 
-            if (!existingUserName) return throwError(res, 302);
+            if (!existingUserName) return throwError(req, res, 302);
 
             setAuthValues(req, "email", existingUserName.email);
 
         } catch (error) {
             console.error(error);
-            return throwError(res, 601);
+            return throwError(req, res, 601);
         }
     }
 

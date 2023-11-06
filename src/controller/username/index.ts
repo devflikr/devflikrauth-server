@@ -7,18 +7,18 @@ import { ExpressNextFunction, ExpressRequest, ExpressResponse } from "../../type
 
 async function controllerUsername(req: ExpressRequest, res: ExpressResponse, next: ExpressNextFunction) {
 
-    if (!req.authValues) return throwError(res, 501);
+    if (!req.authValues) return throwError(req, res, 501);
 
     const { uid, username } = req.authValues;
 
-    if (!uid) throwError(res, 502, "uid");
-    if (!username) throwError(res, 502, "username");
+    if (!uid) throwError(req, res, 502, "uid");
+    if (!username) throwError(req, res, 502, "username");
 
     try {
 
         const existingUserName = await UserName.findOne({ username: username?.toLowerCase() });
 
-        if (existingUserName) return throwError(res, 106);
+        if (existingUserName) return throwError(req, res, 106);
 
         await UserDetail.updateOne({ uid: new ObjectId(uid) }, {
             username,
@@ -30,7 +30,7 @@ async function controllerUsername(req: ExpressRequest, res: ExpressResponse, nex
 
     } catch (error) {
         console.error(error);
-        return throwError(res, 601);
+        return throwError(req, res, 601);
     }
 
     next();

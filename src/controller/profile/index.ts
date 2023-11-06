@@ -7,11 +7,11 @@ import { ExpressNextFunction, ExpressRequest, ExpressResponse } from "../../type
 
 async function controllerProfile(req: ExpressRequest, res: ExpressResponse, next: ExpressNextFunction) {
 
-    if (!req.authValues) return throwError(res, 501);
+    if (!req.authValues) return throwError(req, res, 501);
 
     const { uid, firstname, lastname, profile, phone, gender, birthday } = req.authValues;
 
-    if (!uid) throwError(res, 502, "uid");
+    if (!uid) throwError(req, res, 502, "uid");
 
     try {
 
@@ -27,7 +27,7 @@ async function controllerProfile(req: ExpressRequest, res: ExpressResponse, next
 
     } catch (error) {
         console.error(error);
-        return throwError(res, 601);
+        return throwError(req, res, 601);
     }
 
     next();

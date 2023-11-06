@@ -7,11 +7,11 @@ import { ExpressNextFunction, ExpressRequest, ExpressResponse } from "../../type
 
 async function controllerUpdateAuthArray(req: ExpressRequest, res: ExpressResponse, next: ExpressNextFunction) {
 
-    if (!req.authValues) return throwError(res, 501);
+    if (!req.authValues) return throwError(req, res, 501);
 
     const { session } = req.authValues;
 
-    if (!session) return throwError(res, 502, "session");
+    if (!session) return throwError(req, res, 502, "session");
 
     try {
         let authArray = (req.cookies[AUTH_ARRAY_NAME] as string || "").split(".");
@@ -27,7 +27,7 @@ async function controllerUpdateAuthArray(req: ExpressRequest, res: ExpressRespon
         next();
     } catch (error) {
         console.error(error);
-        return throwError(res, 601);
+        return throwError(req, res, 601);
     }
 }
 

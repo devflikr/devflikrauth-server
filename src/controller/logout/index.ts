@@ -10,11 +10,11 @@ import { ExpressRequest, ExpressResponse } from "../../types/Express";
 async function controllerLogout(req: ExpressRequest, res: ExpressResponse) {
 
 
-    if (!req.authValues) return throwError(res, 501);
+    if (!req.authValues) return throwError(req, res, 501);
 
     const { auth } = req.authValues;
 
-    if (!auth || !auth.length) return successResponse(res, "No auth session exists", { auth: [] });
+    if (!auth || !auth.length) return successResponse(req, res, "No auth session exists", { auth: [] });
 
     try {
         for (const user of [...auth]) {
@@ -23,10 +23,10 @@ async function controllerLogout(req: ExpressRequest, res: ExpressResponse) {
 
         setResponseCookies(res, AUTH_ARRAY_NAME, null);
 
-        return successResponse(res, "All user sessions removed", { auth: [] });
+        return successResponse(req, res, "All user sessions removed", { auth: [] });
     } catch (error) {
         console.error(error);
-        return throwError(res, 601);
+        return throwError(req, res, 601);
     }
 }
 

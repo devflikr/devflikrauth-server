@@ -38,11 +38,11 @@ export async function controllerProfilePictureEncrypted(req: ExpressRequest, res
 
     const encryptedString = decodeURIComponent(req.params["encrypt"] as string);
 
-    if (!encryptedString) return throwError(res, 601);
+    if (!encryptedString) return throwError(req, res, 601);
 
     const decryptedArray = decryptString(encryptedString).split(":");
 
-    if (decryptedArray.length !== 3) return throwError(res, 601);
+    if (decryptedArray.length !== 3) return throwError(req, res, 601);
 
     return profile(res, decryptedArray[0], decryptedArray[1], decryptedArray[2]);
 }

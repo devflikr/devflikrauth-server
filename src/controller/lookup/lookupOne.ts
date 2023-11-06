@@ -13,13 +13,13 @@ async function controllerLookupOne(req: ExpressRequest, res: ExpressResponse) {
 
     const authUser = parseInt(req.body["auth"] as string);
 
-    if (!req.authValues) return throwError(res, 501);
+    if (!req.authValues) return throwError(req, res, 501);
 
     const { auth, device } = req.authValues;
 
 
-    if (!auth) return throwError(res, 502, "auth");
-    if (!device) return throwError(res, 502, "device");
+    if (!auth) return throwError(req, res, 502, "auth");
+    if (!device) return throwError(req, res, 502, "device");
 
     try {
 
@@ -27,7 +27,7 @@ async function controllerLookupOne(req: ExpressRequest, res: ExpressResponse) {
 
         const session = auth[authUser];
 
-        if (!session) return throwError(res, 502, "session");
+        if (!session) return throwError(req, res, 502, "session");
 
         const existingUserSession = await UserSession.findById(new ObjectId(session));
 
@@ -61,12 +61,12 @@ async function controllerLookupOne(req: ExpressRequest, res: ExpressResponse) {
         }
 
 
-        if (!result) return throwError(res, 604);
+        if (!result) return throwError(req, res, 604);
 
-        return successResponse(res, "", { data: result });
+        return successResponse(req, res, "", { data: result });
     } catch (error) {
         console.error(error);
-        return throwError(res, 601);
+        return throwError(req, res, 601);
     }
 }
 

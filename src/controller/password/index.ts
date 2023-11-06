@@ -7,28 +7,28 @@ import { secureValidatePassword } from "../../util/securePassword";
 
 async function controllerPasswordOld(req: ExpressRequest, res: ExpressResponse, next: ExpressNextFunction) {
 
-    if (!req.authValues) return throwError(res, 501);
+    if (!req.authValues) return throwError(req, res, 501);
 
     const { uid, password } = req.authValues;
 
-    if (!uid) throwError(res, 502, "uid");
-    if (!password) throwError(res, 502, "password");
+    if (!uid) throwError(req, res, 502, "uid");
+    if (!password) throwError(req, res, 502, "password");
 
     try {
 
         const existingUserEntry = await UserEntry.findById(new ObjectId(uid));
 
-        if (!existingUserEntry) return throwError(res, 603);
+        if (!existingUserEntry) return throwError(req, res, 603);
 
-        const isPasswordMatching = await secureValidatePassword(res, existingUserEntry.password, password as string);
+        const isPasswordMatching = await secureValidatePassword(req, res, existingUserEntry.password, password as string);
 
-        if (!isPasswordMatching) return throwError(res, 411);
+        if (!isPasswordMatching) return throwError(req, res, 411);
 
         req.body["password"] = req.body["new-password"];
 
     } catch (error) {
         console.error(error);
-        return throwError(res, 601);
+        return throwError(req, res, 601);
     }
 
     next();

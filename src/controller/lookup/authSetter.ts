@@ -9,7 +9,7 @@ async function controllerLookupAuthSetter(req: ExpressRequest, res: ExpressRespo
 
         let authArray = (req.cookies[AUTH_ARRAY_NAME] as string || "").split(".");
 
-        if (!authArray.length) return throwError(res, 601);
+        if (!authArray.length) return throwError(req, res, 601);
 
         authArray = authArray.filter((item, index) => item && authArray.indexOf(item) === index);
 
@@ -18,7 +18,7 @@ async function controllerLookupAuthSetter(req: ExpressRequest, res: ExpressRespo
         next();
     } catch (error) {
         console.error(error);
-        return throwError(res, 601);
+        return throwError(req, res, 601);
     }
 }
 

@@ -11,13 +11,13 @@ import { ExpressRequest, ExpressResponse } from "../../types/Express";
 
 async function controllerLookup(req: ExpressRequest, res: ExpressResponse) {
 
-    if (!req.authValues) return throwError(res, 501);
+    if (!req.authValues) return throwError(req, res, 501);
 
     const { auth, device } = req.authValues;
 
 
-    if (!auth) return throwError(res, 502, "auth");
-    if (!device) return throwError(res, 502, "device");
+    if (!auth) return throwError(req, res, 502, "auth");
+    if (!device) return throwError(req, res, 502, "device");
 
     try {
 
@@ -60,12 +60,12 @@ async function controllerLookup(req: ExpressRequest, res: ExpressResponse) {
 
         setResponseCookies(res, AUTH_ARRAY_NAME, auth.join("."));
 
-        if (!result.length) return throwError(res, 605);
+        if (!result.length) return throwError(req, res, 605);
 
-        return successResponse(res, "", { auth: result });
+        return successResponse(req, res, "", { auth: result });
     } catch (error) {
         console.error(error);
-        return throwError(res, 601);
+        return throwError(req, res, 601);
     }
 }
 

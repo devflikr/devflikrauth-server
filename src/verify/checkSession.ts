@@ -5,7 +5,7 @@ import { ExpressNextFunction, ExpressRequest, ExpressResponse } from "../types/E
 function checkSession(req: ExpressRequest, res: ExpressResponse, next: ExpressNextFunction) {
     const session = req.body["session"];
 
-    if (!session) return throwError(res, 606);
+    if (!session) return throwError(req, res, 606);
 
     setAuthValues(req, "session", session);
 

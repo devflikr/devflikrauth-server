@@ -30,7 +30,7 @@ export async function generateDeviceUUID(req: ExpressRequest, res: ExpressRespon
 
         } catch (error) {
             console.log(error);
-            throwError(res, 601);
+            throwError(req, res, 601);
         }
     }
 

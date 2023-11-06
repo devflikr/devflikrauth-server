@@ -7,12 +7,12 @@ import { ExpressNextFunction, ExpressRequest, ExpressResponse } from "../types/E
 function checkPasswordOld(req: ExpressRequest, res: ExpressResponse, next: ExpressNextFunction) {
     const password = (req.body["old-password"] as string || "");
 
-    if (validatePassword(res, password) === true) setAuthValues(req, "password", password) && next();
+    if (validatePassword(req, res, password) === true) setAuthValues(req, "password", password) && next();
 }
 
-export function validatePassword(res: ExpressResponse, password: string) {
+export function validatePassword(req: ExpressRequest, res: ExpressResponse, password: string) {
 
-    if (isEmpty(password)) return throwError(res, 408);
+    if (isEmpty(password)) return throwError(req, res, 408);
 
     return true;
 }

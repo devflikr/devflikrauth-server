@@ -8,20 +8,20 @@ import UserDetail from "../../mongodb/models/UserDetail";
 
 async function controllerPasswordNew(req: ExpressRequest, res: ExpressResponse, next: ExpressNextFunction) {
 
-    if (!req.authValues) return throwError(res, 501);
+    if (!req.authValues) return throwError(req, res, 501);
 
     const { uid, password } = req.authValues;
 
-    if (!uid) throwError(res, 502, "uid");
-    if (!password) throwError(res, 502, "password");
+    if (!uid) throwError(req, res, 502, "uid");
+    if (!password) throwError(req, res, 502, "password");
 
     try {
 
         const existingUserEntry = await UserEntry.findById(new ObjectId(uid));
 
-        if (!existingUserEntry) return throwError(res, 603);
+        if (!existingUserEntry) return throwError(req, res, 603);
 
-        const hashedPassword = await securePassword(res, password as string);
+        const hashedPassword = await securePassword(req, res, password as string);
 
         await existingUserEntry.updateOne({ password: hashedPassword });
 
@@ -29,7 +29,7 @@ async function controllerPasswordNew(req: ExpressRequest, res: ExpressResponse, 
 
     } catch (error) {
         console.error(error);
-        return throwError(res, 601);
+        return throwError(req, res, 601);
     }
 
     next();
