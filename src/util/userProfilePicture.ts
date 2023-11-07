@@ -10,5 +10,5 @@ export default function generateUserUniqueProfilePicture(name: string) {
 
     initials = ((initials.split(" ").length > 1) ? initials.split(" ").map(word => word.charAt(0)).join("") : initials).slice(0, 2).toUpperCase();
 
-    return `https://devflikrauth.onrender.com/userprofile/u/${encodeURIComponent(encryptString(`${initials}:${color}:${contrast}`))}`;
+    return `https://auth.devflikr.com/userprofile/u/${encodeURIComponent(encryptString(`${initials}:${color}:${contrast}`))}`;
 }
