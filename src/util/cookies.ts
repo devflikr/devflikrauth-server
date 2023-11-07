@@ -6,8 +6,6 @@ export default function setResponseCookies(res: ExpressResponse, name: string, v
         domain: ".devflikr.com",
         expires: (value == null ? new Date(Date.now()) : new Date(Date.now() + 365 * 24 * 60 * 60 * 1000)),
         sameSite: process.env.MODE === "development" ? "none" : "lax",
-        secure: process.env.MODE === "development",
-        httpOnly: process.env.MODE === "development",
         ...config,
     });
 }
