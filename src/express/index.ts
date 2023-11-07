@@ -15,7 +15,7 @@ expressApp.use(userAgent.express());
 expressApp.use(morgan("dev"));
 expressApp.use(cors({
     origin: [
-        /^https:\/\/(?:[a-zA-Z0-9-]+\.)?devflikr\.app$/,
+        /^https:\/\/(?:[a-zA-Z0-9-]+\.)?devflikr\.com$/,
         /^http:\/\/localhost:(5\d{3}|5999)$/,
     ],
     credentials: true,
