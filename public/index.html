@@ -1,0 +1,82 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@devflikrauth | API Endpoint</title>
+    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            color-scheme: dark;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        #app {
+            background-color: #121314;
+            width: 100%;
+            padding: 10px;
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        dotlottie-player {
+            margin-top: auto;
+        }
+
+        h1 {
+            font-size: 40px;
+            color: #2a52be;
+        }
+
+        h2 {
+            font-size: 25px;
+            color: #565656;
+
+        }
+
+        h3 {
+            margin-block: auto;
+            color: #727888;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        h3 span {
+            color: green;
+        }
+
+        h4 {
+            color: #727888;
+            font-size: 12px;
+            font-weight: 500;
+            margin-top: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <dotlottie-player src="https://api.npoint.io/a7840120a997d23d3c3b" background="transparent" speed="1"
+            style="width: 300px; height: 300px;" loop autoplay></dotlottie-player>
+        <h1>Everything is going well.</h1>
+        <h2>Just...</h2>
+        <h2>You shouldn't be here.</h2>
+        <h2>Shoo..., go away.</h2>
+        <h3>Everything is up and running. The server status is <span>healthy</span>.</h3>
+        <h4>© 2023 DevFlikr Organization | @devflikrauth | @auth.devflikr.com</h4>
+    </div>
+
+</body>
+
+</html>

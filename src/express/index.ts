@@ -6,6 +6,7 @@ import express, { Express } from "express";
 
 import accountsRouter from "../routes";
 import { generateDeviceUUID, handleDeviceTransport } from "../util/deviceUUID";
+import { resolve } from "path";
 
 const expressApp: Express = express();
 
@@ -23,16 +24,14 @@ expressApp.use(cors({
 expressApp.use(handleDeviceTransport);
 expressApp.use(generateDeviceUUID);
 
+expressApp.use(express.static(resolve("public")));
+
 expressApp.listen(process.env.PORT, () => {
-    console.log(`Server started on ${process.env.PORT}`);
+    console.log(`⚔️  api @port ${process.env.PORT}`);
 });
 
-expressApp.get("/test", (req, res) => {
-    res.json(req.query || {});
-});
-
-expressApp.get("/", (req, res) => {
-    res.send("<center><h2>If you are seeing this, it means the server is working well.<hr />Just close this tab and go back to sleep. Good night...</h2></center>");
+expressApp.get("/health", (req, res) => {
+    res.sendStatus(200);
 });
 
 expressApp.use(accountsRouter);

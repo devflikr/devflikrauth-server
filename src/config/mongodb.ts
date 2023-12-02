@@ -6,5 +6,5 @@ mongoose
         useNewUrlParser: true,
         useUnifiedTopology: true
     } as ConnectOptions)
-    .then(() => console.log("MongoDB is connected successfully."))
+    .then(() => console.log("⚔️  api @database mongodb"))
     .catch((err) => console.error(err));
